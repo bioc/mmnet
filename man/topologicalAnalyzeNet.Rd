@@ -1,5 +1,5 @@
-\name{analyzeSSN}
-\alias{analyzeSSN}
+\name{topologicalAnalyzeNet}
+\alias{topologicalAnalyzeNet}
 \title{
 Analyze the specific state network 
 }
@@ -7,11 +7,11 @@ Analyze the specific state network
 Calculate Topological features of each node and linked with abundance attributes.
 }
 \usage{
-analyzeSSN(g, Scatterplot = TRUE, .properties = c("betweennessCentrality", "degree", "clusteringCoefficient", "pageRank"), mode = c("all", "in", "out"), ...)
+topologicalAnalyzeNet(g, Scatterplot = TRUE, .properties = c("betweennessCentrality", "degree", "clusteringCoefficient", "pageRank"), mode = c("all", "in", "out"), ...)
 }
 \arguments{
   \item{g}{
-a igraph network of a specific state, it can be obtained with function \code{\link{stripSSN}} 
+a igraph network of a specific state, it can be obtained with function \code{\link{constructSSN}} 
 }
   \item{Scatterplot}{
 logical, if show the scatterplot between topolagical features and abundance
@@ -36,21 +36,20 @@ degree: the most basic structural property, represents the number of its adjacen
 clustringCofficient: measures the probability that the adjacent vertices of a vertex are connected
 
 pageRank: Calculates the Google PageRank for the vertices in network
-
-
 }
+
 \value{
 a graph that add all the calculated topological features as the meta-attributes
 }
 \seealso{
-\code{\link{stripSSN}}, \code{\link{topologicalCoff}},\code{link{neighborhoodConnectivity}}
+\code{\link{constructSSN}}
 }
 \examples{
 ##
-data(mgp10Anno)
+data(anno)
 data(RefDbcache)
-KOAbund <- estimateAbundance(mgp10Anno[[1]])
+KOAbund <- estimateAbundance(anno[[1]])
 
-subnet  <- stripSSN(KOAbund)
-analyzeSSN(subnet)
+subnet  <- constructSSN(KOAbund)
+topologicalAnalyzeNet(subnet)
 }
