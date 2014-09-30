@@ -25,7 +25,7 @@ differentialAnalyzeNet <- function(ssns, sample.state, method = c("OR", "rank", 
     #ko.abund <- data.frame(as.matrix(biom_data(abundance)))
     #kos <- rownames(ko.abund)
     kos <- as.character(abund[,1])
-    ko.abund <- abund[,c(2,3)]
+    ko.abund <- abund[,-1]
     ko.abund <- data.frame(lapply(ko.abund,function(x)x/sum(x)))
     ## odds ratio
     if (length(sample.state) != ncol(ko.abund))

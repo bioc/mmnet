@@ -264,9 +264,13 @@ Furthermore, BIOM abundance file was also supported by other tools. Take MG-RAST
 ## download BIOM functional abundance profile of the two sample metagenome from MG-RAST
 if(require(RCurl)){
   function.api <- "http://api.metagenomics.anl.gov/1/matrix/function"
-  mgrast.abund <- read_biom(getForm(function.api,
-                             .params=list(id="mgm4440616.3",id="mgm4440823.3",
-                                          source="KO",result_type="abundance")))
+  mgrast.abund <- tryCatch(read_biom(getForm(function.api, .params=list(id="mgm4440616.3",id="mgm4440823.3",
+                           source="KO",result_type="abundance"))),
+                           error = function(e) {
+                             msg <- conditionMessage(e)
+                             structure(msg, class = "try-error")
+                           }
+                        )
 }
 ## obtain the intersect ko abundance of MG-RAST and esimatiAbundance
 intersect.ko <- intersect(rownames(mgrast.abund),rownames(mmnet.abund))
